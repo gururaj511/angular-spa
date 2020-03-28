@@ -1,0 +1,34 @@
+<div>
+    <div class="d-flex flex-row-reverse">
+        <div class="p-2">
+            <p class="font-weight-bold">Number of users: {{userList.length}}</p>
+        </div>
+        <div class="p-2">
+            <p><button type="button" class="btn btn-secondary btn-sm" (click)="navigateToForm()">Add</button></p>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Email Id</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Locations</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of userList let i = index">
+                <td>{{user.name}}</td>
+                <td>+91-{{user.phoneNumber | slice:0:3}}-{{user.phoneNumber | slice:3:6}}-{{user.phoneNumber | slice:6:10}}</td>
+                <td>{{user.emailId}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{getSelectedVals(user.locations) }}</td>
+                <td><button type="button" class="btn btn-primary btn-sm" (click)="editUser(user, i)">Edit</button></td>
+                <td><button type="button" class="btn btn-danger btn-sm" (click)="deleteUser(i)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

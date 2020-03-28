@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && myFormControl.name.errors }" id="name"
+                    formControlName="name" placeholder="Enter name">
+                <div *ngIf="submitted && myFormControl.name.errors?.required" class="invalid-feedback">
+                    Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
+                    [ngClass]="{ 'is-invalid': submitted && myFormControl.phoneNumber.errors }"
+                    placeholder="Enter phone number" maxlength="10">
+                <div *ngIf="submitted && myFormControl.phoneNumber.errors?.pattern" class="invalid-feedback">
+                    Invalid Phone Number
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="emailId">Email Id</label>
+                <input type="email" class="form-control" id="emailId" formControlName="emailId"
+                    [ngClass]="{ 'is-invalid': submitted && myFormControl.emailId.errors }" placeholder="Enter email">
+                <div *ngIf="submitted && myFormControl.emailId.errors?.email" class="invalid-feedback">
+                    Email must be a valid email address
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="custom-select" formControlName="gender"
+                    [ngClass]="{ 'is-invalid': submitted && myFormControl.gender.errors }">
+                    <option value="" disabled> -- select --</option>
+                    <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+                </select>
+                <div *ngIf="submitted && myFormControl.gender.errors?.required" class="invalid-feedback">
+                    Gender is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="mr-1" formArrayName="locations" *ngFor="let location of getControls(); let i = index">
+                    <input class="mr-1" type="checkbox" [formControlName]="i">
+                    {{locations[i].name}}
+                </label>
+                <div *ngIf="submitted && myFormControl.locations.errors?.required" class="invalid-feedback show">
+                    Location is required
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success btn-sm  mr-1">Submit</button>
+            <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/']">View All</button>
+        </form>
+    </div>
+</div>
